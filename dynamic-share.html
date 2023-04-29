@@ -1,0 +1,81 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+  <meta charset="UTF-8">  
+  <title>限制级内容拦截器</title>  
+  <style>
+    .btn-submit-class {
+      border-radius: 23px;
+      border: 1px solid #dfe1e5;
+      padding: 6px;
+    }
+    a {text-decoration: none;}
+    .ahref-class {
+      font-size: 58%;
+    }
+    hr {
+      margin: 1em 2em;
+      padding: 0;
+      height: 1px;
+      border: none;
+      color: #555545;
+      color: #DDD;
+      background-color: #AAA;
+      background-color: #555545;
+    }
+    a {text-decoration: none;}
+  </style>
+</head>  
+<body style="text-align: center;">
+  <noscript>
+    你的浏览器可能不支持JavaScript，此程序必须使用JavaScript执行！
+  </noscript>
+  <button class="btn-submit-class" onclick="CheckShareToText()">获取分享文本</button>
+  <button class="btn-submit-class" onclick="CheckShareToFacebook()">分享到Facebook</button>
+  <button class="btn-submit-class" onclick="CheckShareToTwitter()">分享到Twitter</button>
+  <div class="ahref-class">
+    <a href="https://deep-forest-club.wikidot.com/privacy-policy" target="_blank">隐私权政策</a> | <a href="https://deep-forest-club.wikidot.com/site-rules" target="_blank">网站站规</a>
+    <br>
+    若继续使用则代表你同意以上内容。本程序不会收集任何日志，所有信息亦在本地处理和使用。
+  </div>
+  <script>
+  function getQueryString(linkurl) {
+    var query_string = window.location.search;
+    if (!query_string) return null; // 如果无参，返回null
+    var re = /[?&]?([^=]+)=([^&]*)/g;
+    var tokens;
+    while (tokens = re.exec(query_string)) {
+    if (decodeURIComponent(tokens[1]) === linkurl) {
+      return decodeURIComponent(tokens[2]);
+    }
+  }
+    return null;
+  }
+    function getQueryString(title) {
+    var query_string = window.location.search;
+    if (!query_string) return null; // 如果无参，返回null
+    var re = /[?&]?([^=]+)=([^&]*)/g;
+    var tokens;
+    while (tokens = re.exec(query_string)) {
+    if (decodeURIComponent(tokens[1]) === title) {
+      return decodeURIComponent(tokens[2]);
+    }
+  }
+    return null;
+  }
+    var link = getQueryString('linkurl');
+    var titlename = getQueryString('title');
+    function CheckShareToText(){  
+      var copyText = "标题："titlename+"，链接"+link+"，快来看看这篇动态吧！";
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /* 移动设备 */
+    }
+    function CheckShareToFacebook(){  
+      windows.open("https://www.facebook.com/sharer.php?title="+titlename+"&u="+link)
+    }
+    function CheckShareToTwitter({  
+      windows.open("https://twitter.com/share?text="+titlename+"&url="+link)
+    }
+  </script>  
+</body>  
+</html>
