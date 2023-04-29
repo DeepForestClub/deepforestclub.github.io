@@ -1,15 +1,45 @@
-<html>
-  <head>
-    <title>限制级拦截器</title>
-    <style>
-    </style>
-    <script>
-    </script>
-  </head>
-  <body style="text-align: center;">
-    <input type="date" name="input-date-birthday" id="input-date-birthday" class="input-date-birthday">
-    <input type="submit" value="验证">
-    <br> <br>
-    <a href="https://deep-forest-club.wikidot.com/privacy-policy">隐私权政策</a> | <a href="https://deep-forest-club.wikidot.com/site-rules">网站站规</a>
-  </body>
+<!DOCTYPE html>  
+<html>  
+<head>  
+  <meta charset="UTF-8">  
+  <title>年龄验证</title>  
+  <style>
+  </style>  
+</head>  
+<body>
+  <input type="date" name="input-date-birthday" id="input-date-birthday" class="input-date-birthday" placeholder="请输入出生日期（例如：2000/01/01）">  
+  <button class="btn-submit" onclick="checkAge()">验证</button>  
+  <script>
+  let linkurl = getQueryVariable("link");
+    function checkAge() {  
+  var birthday = document.getElementById("input-date-birthday").value;  
+  var regExp = /^(\d{4})[\/|-](\d{1,2})[\/|-](\d{1,2})$/;  
+  if (!regExp.test(birthday)) {  
+    alert("你输入的出生日期格式不正确，请尝试重新输入。");  
+    return false;  
+  }  
+  var age = getAge(birthday);  
+  if (isNaN(age)) {  
+    alert("你输入的出生日期信息无效，请尝试重新输入。");  
+    return false;  
+  }  
+  if (age < 18) {  
+    alert("你的年龄未满18周岁，无法访问限制级页面。");  
+    return false;  
+  }  
+  window.location.href = linkurl+"#content-wrap";  
+}  
+  
+function getAge(dateString) {  
+  var today = new Date();  
+  var birthDate = new Date(dateString);  
+  var age = today.getFullYear() - birthDate.getFullYear();  
+  var m = today.getMonth() - birthDate.getMonth();  
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {  
+    age--;  
+  }  
+  return age;  
+}  
+  </script>  
+</body>  
 </html>
