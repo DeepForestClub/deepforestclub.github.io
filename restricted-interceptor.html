@@ -12,6 +12,8 @@
   <br> <br>
   <a href="https://deep-forest-club.wikidot.com/privacy-policy">隐私权政策</a> | <a href="https://deep-forest-club.wikidot.com/site-rules">网站站规</a>
   <script>
+  var childUrl = document.getElementById("riFrame").contentWindow.location.href;
+    console.log(childUrl);
     function checkAge() {  
   var birthday = document.getElementById("input-date-birthday").value;  
   var regExp = /^(\d{4})[\/|-](\d{1,2})[\/|-](\d{1,2})$/;  
@@ -28,7 +30,7 @@
     alert("你的年龄未满18周岁，无法访问限制级页面。");  
     return false;  
   }  
-  location.href = "#content-wrap";  
+  location.href = childUrl+"#content-wrap";  
 }  
   
 function getAge(dateString) {  
