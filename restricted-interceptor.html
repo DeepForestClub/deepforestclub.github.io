@@ -41,7 +41,7 @@
     alert("你的年龄未满18周岁，无法访问限制级页面。");  
     return false;  
   }  
-  window.open(link+"#content-wrap");
+  window.location.replace(link+"#content-wrap");
 }  
   
 function getAge(dateString) {  
