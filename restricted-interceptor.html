@@ -13,7 +13,7 @@
   <a href="https://deep-forest-club.wikidot.com/privacy-policy">隐私权政策</a> | <a href="https://deep-forest-club.wikidot.com/site-rules">网站站规</a>
   <script>
   function getQueryString(linkurl) {
-    var query_string = "window.location.search";
+    var query_string = window.location.search;
     if (!query_string) return null; // 如果无参，返回null
     var re = /[?&]?([^=]+)=([^&]*)/g;
     var tokens;
@@ -24,7 +24,7 @@
   }
     return null;
   }
-  var link = console.log(getQueryString('linkurl'));
+  var link = getQueryString('linkurl');
     function checkAge() {  
   var birthday = document.getElementById("input-date-birthday").value;  
   var regExp = /^(\d{4})[\/|-](\d{1,2})[\/|-](\d{1,2})$/;  
