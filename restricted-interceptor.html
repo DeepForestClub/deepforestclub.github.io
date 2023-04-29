@@ -25,6 +25,9 @@
   </style>
 </head>  
 <body style="text-align: center;">
+  <noscript>
+    你的浏览器可能不支持JavaScript，此程序必须使用JavaScript执行！
+  </noscript>
   <input type="date" name="input-date-birthday" id="input-date-birthday" class="input-date-birthday-class" placeholder="请输入出生日期（例如：2000/01/01）">  
   <button class="btn-submit-class" onclick="checkAge()">验证</button>  
   <br><hr>
@@ -63,7 +66,7 @@
     alert("你的年龄未满18周岁，无法访问限制级页面。");  
     return false;  
   }  
-  window.location.replace(link+"#content-wrap");
+  window.open(link+"#content-wrap");
 }  
   
 function getAge(dateString) {  
