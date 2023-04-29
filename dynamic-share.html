@@ -51,6 +51,7 @@
   }
     return null;
   }
+  var link = getQueryString('linkurl');
     function getQueryString(title) {
     var query_string = window.location.search;
     if (!query_string) return null; // 如果无参，返回null
@@ -63,8 +64,7 @@
   }
     return null;
   }
-    var link = getQueryString('linkurl');
-    var titlename = getQueryString('title');
+  var titlename = getQueryString('title');
     function CheckShareToText(){  
       var copyText = "标题："titlename+"，链接"+link+"，快来看看这篇动态吧！";
       copyText.select();
