@@ -12,20 +12,8 @@
   <br> <br>
   <a href="https://deep-forest-club.wikidot.com/privacy-policy">隐私权政策</a> | <a href="https://deep-forest-club.wikidot.com/site-rules">网站站规</a>
   <script>
-  function getParentUrl() {
-    var url = null;
-    //判断是否是iframe或其他嵌套方式
-    if (window.parent !== window.self) {
-      try {
-        let {protocol,host,port} = window.top.location;
-        url= protocol + '//' + host + (port?':'+port:'');
-      }catch (e) {
-        let filterArr = document.referrer.split('/');
-        url = filterArr[0] + '//' + filterArr[2];
-      }
-    }
-    return url;
-  }
+  var url;
+    url = window.location.href;
     function checkAge() {  
   var birthday = document.getElementById("input-date-birthday").value;  
   var regExp = /^(\d{4})[\/|-](\d{1,2})[\/|-](\d{1,2})$/;  
