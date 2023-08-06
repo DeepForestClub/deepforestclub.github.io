@@ -4,7 +4,7 @@
   <meta charset="UTF-8">  
   <title>分享动态</title>  
   <style>
-    .btn-submit-class {
+    .share-button {
       border-radius: 23px;
       border: 1px solid #dfe1e5;
       padding: 6px;
@@ -30,40 +30,68 @@
   <noscript>
     你的浏览器可能不支持JavaScript，此程序必须使用JavaScript执行！
   </noscript>
-  <button class="btn-submit-class" onclick="CheckShareToText()">获取分享文本</button>
-  <button class="btn-submit-class" onclick="CheckShareToFacebook()">分享到Facebook</button>
-  <button class="btn-submit-class" onclick="CheckShareToTwitter()">分享到Twitter</button>
+  
+  <button class="share-button" id="copyButton">复制分享文本</button>
+  <button class="share-button" id="twitterButton">分享到推特</button>
+  <button class="share-button" id="facebookButton">分享到Facebook</button>
+  <button class="share-button" id="qqZoneButton">分享到QQ空间</button>
+  
   <div class="ahref-class">
     <a href="https://deep-forest-club.wikidot.com/privacy-policy" target="_blank">隐私权政策</a> | <a href="https://deep-forest-club.wikidot.com/site-rules" target="_blank">网站站规</a>
     <br>
     若继续使用则代表你同意以上内容。本程序不会收集任何日志，所有信息亦在本地处理和使用。
   </div>
-  <script>
-    function getQueryString(linkurl) {
-      var query_string = window.location.search;
-      if (!query_string) return null; // 如果无参，返回null
-      var re = /[?&]?([^=]+)=([^&]*)/g;
-      var tokens;
-      while (tokens = re.exec(query_string)) {
-        if (decodeURIComponent(tokens[1]) === linkurl) {
-          return decodeURIComponent(tokens[2]);
-        }
+   <script>
+    $(document).ready(function() {
+      // 获取链接URL中的参数
+      function getUrlParameter(name) {
+        name = name.replace(/[[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        var results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
       }
-      return null;
-    }
-    var link = getQueryString('linkurl');
-    var titlename = getQueryString('title');
-    function CheckShareToText() {  
-      var copyText = "标题：" + titlename + "，链接" + link + "，快来看看这篇动态吧！";
-      copyText.select();
-      copyText.setSelectionRange(0, 99999); /* 移动设备 */
-    }
-    function CheckShareToFacebook() {  
-      windows.open("https://www.facebook.com/sharer.php?title=" + titlename + "&u=" + link);
-    }
-    function CheckShareToTwitter() {  
-      windows.open("https://twitter.com/share?text=" + titlename + "&url=" + link);
-    }
-  </script>  
+
+      // 解析链接中的linkurl和title参数
+      var linkUrl = getUrlParameter("linkurl");
+      var linkTitle = getUrlParameter("title");
+
+      // 复制分享文本
+      $("#copyButton").click(function() {
+        var shareText = "【" + linkTitle + "】：" + linkUrl;
+        navigator.clipboard.writeText(shareText)
+          .then(function() {
+            alert("分享文本已复制到剪贴板！");
+          })
+          .catch(function(error) {
+            console.error("复制分享文本失败: ", error);
+          });
+      });
+
+      // 分享到推特
+      $("#twitterButton").click(function() {
+        var shareText = "我在看【" + linkTitle + "】，你也来看看吧：" + linkUrl;
+        var twitterUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText);
+        openNewWindow(twitterUrl);
+      });
+
+      // 分享到Facebook
+      $("#facebookButton").click(function() {
+        var shareText = "我发现了一个有趣的内容【" + linkTitle + "】，点击查看：" + linkUrl;
+        var facebookUrl = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(linkUrl) + "&quote=" + encodeURIComponent(shareText);
+        openNewWindow(facebookUrl);
+      });
+
+      // 分享到QQ空间
+      $("#qqZoneButton").click(function() {
+        var shareText = "这篇文章【" + linkTitle + "】写得很好，大家都来看看吧：" + linkUrl;
+        var qqZoneUrl = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + encodeURIComponent(linkUrl) + "&title=" + encodeURIComponent(shareText);
+        openNewWindow(qqZoneUrl);
+      });
+
+      function openNewWindow(url) {
+        window.open(url, "_blank");
+      }
+    });
+  </script>
 </body>  
 </html>
