@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>DEEP-FOREST-CLUB DOCS</title>
@@ -10,7 +10,6 @@
 </head>
 <body>
   <div id="app"></div>
-
   <script>
     window.$docsify = {
       name: 'DEEP-FOREST-CLUB DOCS',
@@ -27,7 +26,7 @@
       },
       mergeNavbar: true,
       formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
-      fallbackLanguages: ['en','zh-cn', 'zn-tr'],
+      fallbackLanguages: ['en', 'zh-cn', 'zh-tr'],
       notFoundPage: {
         '/': '_404.md',
         '/zh-cn/': 'zh-cn/_404.md',
@@ -35,51 +34,29 @@
       },
       loadSidebar: true,
       subMaxLevel: 2,
-      // 修正编辑链接插件的配置
       plugins: [
-        EditOnGithubPlugin.create("https://github.com/DeepForestClub/deepforestclub.github.io/blob/master/docs/")
+        function(hook, vm) {
+          hook.doneEach(function() {
+            DocsifyZoomImage.create();
+            DocsifyCopyCode.create();
+            if (vm._mixinInit) {
+              vm._mixinInit();
+            }
+          });
+        }
       ]
     };
   </script>
-
-  <!-- 引入编辑链接插件脚本 -->
   <script src="https://cdn.jsdelivr.net/npm/docsify-edit-on-github@3"></script>
-  <!-- 引入 Docsify Zoom Image 插件脚本 -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-  <!-- 引入 Docsify Copy Code 插件脚本 -->
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
-  <!-- 引入 Docsify 本体脚本 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-
-  <!-- 注册 PWA 的 Service Worker -->
   <script>
     if (typeof navigator.serviceWorker !== 'undefined') {
       navigator.serviceWorker.register('sw.js');
     }
-  </script>
 
-  <!-- 自定义插件脚本 -->
-  <script>
-    function initPlugins(hook, vm) {
-      hook.doneEach(function() {
-        // 初始化 Docsify Zoom Image 插件
-        DocsifyZoomImage.create();
-
-        // 初始化 Docsify Copy Code 插件
-        DocsifyCopyCode.create();
-
-        // 调用私有方法 _mixinInit() 初始化其他插件
-        if (vm._mixinInit) {
-          vm._mixinInit();
-        }
-      });
-    }
-
-    // 引入插件脚本
-    window.$docsify = window.$docsify || {};
-    window.$docsify.plugins = [
-      initPlugins
-    ];
+    window.$docsify.plugins.push(EditOnGithubPlugin.create("https://github.com/DeepForestClub/deepforestclub.github.io/blob/master/docs/"));
   </script>
 </body>
 </html>
