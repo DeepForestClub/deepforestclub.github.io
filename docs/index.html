@@ -31,7 +31,7 @@
     <div id="app"></div>
 
     <script>
-        var repoUrl = "https://github.com/DeepForestClub/deep-forest-club.github.io"; // TODO: Update.
+        var repoUrl = "https://github.com/DeepForestClub/deep-forest-club.github.io"; 
         var editPath = repoUrl + "/blob/master/docs/";
         var editMsg = "📝 Edit on GitHub";
         
@@ -44,9 +44,7 @@
             loadSidebar: false,
             subMaxLevel: 2,
             executeScript: true,
-        
-            fallbackLanguages: ['zh-cn', 'en-us','zh-tr'],
-
+            
             plugins: [
                 EditOnGithubPlugin.create(editPath, null, editMsg)
             ],
