@@ -32,7 +32,19 @@
         '/zh-cn': 'zh-cn/_404.md',
         '/zh-tr': 'zh-tr/_404.md'
       }
-  };
+    };
+
+    // 引入CDN链接
+    window.$docsify = window.$docsify || {};
+    window.$docsify.plugins = [
+      DocsifyZoomImage.create(),
+      DocsifyCopyCode.create(),
+      function (hook, vm) {
+        hook.doneEach(function () {
+          vm._mixinInit();
+        });
+      }
+    ];
   </script>
   <!-- Zoom Image -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
@@ -43,7 +55,7 @@
   <!-- PWA sw.js Script -->
   <script>
     if (typeof navigator.serviceWorker !== 'undefined') {
-      navigator.serviceWorker.register('sw.js')
+      navigator.serviceWorker.register('sw.js');
     }
   </script>
   <!-- Docsify v4 -->
