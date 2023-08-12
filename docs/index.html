@@ -31,41 +31,8 @@
         '/': '_404.md',
         '/zh-cn': 'zh-cn/_404.md',
         '/zh-tr': 'zh-tr/_404.md'
-      },
-      plugins: [
-          DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
-          function (hook, vm) {
-            hook.beforeEach(html => {
-              if (/githubusercontent\.com/.test(vm.route.file)) {
-                url = vm.route.file
-                  .replace('raw.github.com', 'github.com')
-                  .replace(/\/master/, '/blob/master');
-              } else if (/jsdelivr\.net/.test(vm.route.file)) {
-                url = vm.route.file
-                  .replace('cdn.jsdelivr.net/gh', 'github.com')
-                  .replace('@master', '/blob/MAIN');
-              } else {
-                url =
-                  'https://github.com/DeepForestClub/deepforestclub.github.io/tree/main/docs' +
-                  vm.route.file;
-              }
-              const editHtml = '[:memo: Edit Document](' + url + ')\n';
-              return (
-                editHtml +
-                html +
-                '\n\n----\n\n' +
-                '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
-              );
-            });
-          },
-        ],
-      // docsify-copy-code (defaults)
-      copyCode: {
-        buttonText : 'Copy to clipboard',
-        errorText  : 'Error',
-        successText: 'Copied'
       }
-};
+  };
   </script>
   <!-- Zoom Image -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
