@@ -30,12 +30,16 @@
       fallbackLanguages: ['en','zh-cn', 'zn-tr'],
       notFoundPage: {
         '/': '_404.md',
-        '/zh-cn': 'zh-cn/_404.md',
-        '/zh-tr': 'zh-tr/_404.md'
+        '/zh-cn/': 'zh-cn/_404.md',
+        '/zh-tr/': 'zh-tr/_404.md'
       },
-      editLinkPattern: 'https://github.com/DeepForestClub/deepforestclub.github.io/edit/master/docs/{{file}}'
+      loadSidebar: true,
+      subMaxLevel: 2,
+      // 修正编辑链接插件的配置
+      plugins: [
+        EditOnGithubPlugin.create("https://github.com/DeepForestClub/deepforestclub.github.io/blob/master/docs/")
+      ]
     };
-
   </script>
 
   <!-- 引入编辑链接插件脚本 -->
