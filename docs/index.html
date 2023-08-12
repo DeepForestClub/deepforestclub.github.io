@@ -46,22 +46,20 @@
       }
     ];
     function getEditLink(file, lang) {
-      // 替换为您的 GitHub 仓库 URL
-      var repoUrl = 'https://github.com/YOUR_USERNAME/YOUR_REPO';
+      var repoUrl = 'https://github.com/DeepForestClub/deepforestclub.github.io/';
       
       var path = '/' + (lang || '') + file;
-      return repoUrl + '/edit/master/docs' + path;
+      return repoUrl + '/edit/main/docs' + path;
     }
     
     window.$docsify = {
-      // ... 其他配置 ...
       afterMounted: function () {
         var footer = document.querySelector('.footer');
         if (footer) {
           var editLink = document.createElement('a');
           editLink.href = getEditLink(window.location.pathname, window.$docsify.lang);
           editLink.target = '_blank';
-          editLink.innerText = '在 GitHub 上编辑此页';
+          editLink.innerText = 'Edit This Page On GitHub';
           
           footer.appendChild(editLink);
         }
