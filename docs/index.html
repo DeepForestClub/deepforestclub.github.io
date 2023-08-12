@@ -44,8 +44,15 @@
             coverpage: true,
             loadSidebar: false,
             subMaxLevel: 2,
-            themeColor: "#3170a7",
-
+            ext: '.md',
+            executeScript: true,
+            nameLink: {
+              '/zh-tr/': '/zh-tr/'
+              '/zh-cn/': '/zh-cn/',
+              '/': '/',
+            },    
+        
+            fallbackLanguages: ['en', 'zh-cn','zh-tr'],
             plugins: [
                 EditOnGithubPlugin.create(editPath, null, editMsg)
             ],
