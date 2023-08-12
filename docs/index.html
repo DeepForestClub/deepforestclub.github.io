@@ -27,7 +27,7 @@
       },
       mergeNavbar: true,
       formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
-      fallbackLanguages: ['zh-cn', 'zn-tr'],
+      fallbackLanguages: ['en','zh-cn', 'zn-tr'],
       notFoundPage: {
         '/': '_404.md',
         '/zh-cn': 'zh-cn/_404.md',
@@ -36,17 +36,6 @@
       editLinkPattern: 'https://github.com/DeepForestClub/deepforestclub.github.io/edit/master/docs/{{file}}'
     };
 
-    // 引入插件脚本
-    window.$docsify = window.$docsify || {};
-    window.$docsify.plugins = [
-      DocsifyZoomImage.create(),
-      DocsifyCopyCode.create(),
-      function (hook, vm) {
-        hook.doneEach(function () {
-          vm._mixinInit();
-        });
-      }
-    ];
   </script>
 
   <!-- 引入编辑链接插件脚本 -->
@@ -63,6 +52,30 @@
     if (typeof navigator.serviceWorker !== 'undefined') {
       navigator.serviceWorker.register('sw.js');
     }
+  </script>
+
+  <!-- 自定义插件脚本 -->
+  <script>
+    function initPlugins(hook, vm) {
+      hook.doneEach(function() {
+        // 初始化 Docsify Zoom Image 插件
+        DocsifyZoomImage.create();
+
+        // 初始化 Docsify Copy Code 插件
+        DocsifyCopyCode.create();
+
+        // 调用私有方法 _mixinInit() 初始化其他插件
+        if (vm._mixinInit) {
+          vm._mixinInit();
+        }
+      });
+    }
+
+    // 引入插件脚本
+    window.$docsify = window.$docsify || {};
+    window.$docsify.plugins = [
+      initPlugins
+    ];
   </script>
 </body>
 </html>
