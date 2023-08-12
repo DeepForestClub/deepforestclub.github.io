@@ -10,10 +10,11 @@
 </head>
 <body>
   <div id="app"></div>
+
   <script>
     window.$docsify = {
       name: 'DEEP-FOREST-CLUB DOCS',
-      repo: '',
+      repo: 'https://github.com/DeepForestClub/deepforestclub.github.io',
       coverpage: {
         '/': '_cover.md',
         '/zh-cn/': 'zh-cn/_cover.md',
@@ -31,10 +32,11 @@
         '/': '_404.md',
         '/zh-cn': 'zh-cn/_404.md',
         '/zh-tr': 'zh-tr/_404.md'
-      }
+      },
+      editLinkPattern: 'https://github.com/DeepForestClub/deepforestclub.github.io/edit/master/docs/{{file}}'
     };
 
-    // 引入CDN链接
+    // 引入插件脚本
     window.$docsify = window.$docsify || {};
     window.$docsify.plugins = [
       DocsifyZoomImage.create(),
@@ -45,40 +47,22 @@
         });
       }
     ];
-    function getEditLink(file, lang) {
-      var repoUrl = 'https://github.com/DeepForestClub/deepforestclub.github.io/';
-      
-      var path = '/' + (lang || '') + file;
-      return repoUrl + '/edit/main/docs' + path;
-    }
-    
-    window.$docsify = {
-      afterMounted: function () {
-        var footer = document.querySelector('.footer');
-        if (footer) {
-          var editLink = document.createElement('a');
-          editLink.href = getEditLink(window.location.pathname, window.$docsify.lang);
-          editLink.target = '_blank';
-          editLink.innerText = 'Edit This Page On GitHub';
-          
-          footer.appendChild(editLink);
-        }
-      }
-    };
   </script>
-  <!-- Zoom Image -->
+
+  <!-- 引入编辑链接插件脚本 -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-edit-on-github@3"></script>
+  <!-- 引入 Docsify Zoom Image 插件脚本 -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-  <!-- Docsify Copy Code -->
+  <!-- 引入 Docsify Copy Code 插件脚本 -->
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
-  <!-- External Script -->
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/external-script.min.js"></script>
-  <!-- PWA sw.js Script -->
+  <!-- 引入 Docsify 本体脚本 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+
+  <!-- 注册 PWA 的 Service Worker -->
   <script>
     if (typeof navigator.serviceWorker !== 'undefined') {
       navigator.serviceWorker.register('sw.js');
     }
   </script>
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
 </body>
 </html>
