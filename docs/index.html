@@ -33,20 +33,17 @@
         var repoUrl = "https://github.com/DeepForestClub/deep-forest-club.github.io"; 
         var editPath = repoUrl + "/blob/main/docs/";
         var editMsg = "📝 Edit on GitHub";
-        
         window.$docsify = {
             name: "DEEP-FOREST-CLUB DOCS",
             repo: repoUrl,
-            
             auto2top: true,
             coverpage: true,
             loadSidebar: false,
             subMaxLevel: 2,
-            executeScript: true,
-            
+            executeScript: true, 
             plugins: [
                 EditOnGithubPlugin.create(editPath, null, editMsg)
-            ],
+            ]
         }
 
     </script>
