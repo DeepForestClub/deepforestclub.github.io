@@ -1,4 +1,4 @@
-- [Main](/docs/)
+- [Main](/)
 - Translations
   - [English](/docs/en-us/)
   - [简体中文](/docs/zh-cn/)
