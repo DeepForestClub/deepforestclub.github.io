@@ -1,2 +1,6 @@
-
+<script>
+  window.$docsify = {
+    hideSidebar: true,
+  };
+</script>
 ## 404 - 頁面不存在
