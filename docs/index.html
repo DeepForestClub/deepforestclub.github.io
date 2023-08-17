@@ -17,6 +17,18 @@
         section.cover.show {
             height: 100%;
         }
+        a.link {
+            color: inherit;
+            font-weight: normal;
+            text-decoration: none;
+        }
+        blockquote {
+            margin: 1em;
+            padding: 0 15px;
+            background: #fff;
+            border: 1.2px solid #888;
+            border-radius: 12px;
+        }
     </style>
 
     <!-- Edit on GitHub plugin. -->
@@ -38,7 +50,10 @@
             repo: repoUrl,
             homepage: 'main.md',
             auto2top: true,
-            loadSidebar: false,
+            loadSidebar: true,
+            alias: {
+                '/.*/_sidebar.md': '/_sidebar.md'
+            },
             loadNavbar: true,
             subMaxLevel: 2,
             formatUpdated: '{MM}/{DD} {HH}:{mm}',
@@ -56,10 +71,21 @@
                '/zh-tr': '/zh-tr/_404.md'
             },
             plugins: [
-                EditOnGithubPlugin.create(editPath, null, editMsg)
+                EditOnGithubPlugin.create(editPath, null, editMsg),
+                function(hook) {
+                    var footer = [
+                        '<hr/>',
+                        '<footer>',
+                            '<span>Unless otherwise stated, the content of this page is licensed under <a class="link" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> License.</span><br><br>',
+                            '<span><a class="link" href="https://docsify.js.org/" target="_blank">Powered by Docsify</a>, The content on this page is provided by the page contributors and DeepForestClub.</span>',
+                            '</footer>'
+                         ].join('');
+                         hook.afterEach(function(html) {
+                            return html + footer;
+                        });
+                    }
             ]
         }
-
     </script>
     <script>
     if (typeof navigator.serviceWorker !== 'undefined') {
