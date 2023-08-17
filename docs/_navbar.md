@@ -2,4 +2,4 @@
 - Translations
   - [English](/docs/en-us/)
   - [简体中文](/docs/zh-cn/)
-  - [繁體中文](/docs/zh-tw/)
+  - [繁體中文](/docs/zh-tr/)
