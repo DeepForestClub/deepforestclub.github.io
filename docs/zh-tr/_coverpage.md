@@ -1,5 +1,5 @@
 <h1 id="cover-heading">
-  DEEP-FOREST-CLUB 文檔
+  DEEP-FOREST-CLUB DOCS
 </h1>
 
 
