@@ -17,10 +17,12 @@
         section.cover.show {
             height: 100%;
         }
+        a {
+            text-decoration: none;
+        }
         a.link {
             color: inherit;
             font-weight: normal;
-            text-decoration: none;
         }
     </style>
 
@@ -43,6 +45,7 @@
             repo: repoUrl,
             homepage: 'main.md',
             auto2top: true,
+            autoHeader: true,
             loadSidebar: true,
             alias: {
                 '/.*/_sidebar.md': '/_sidebar.md'
