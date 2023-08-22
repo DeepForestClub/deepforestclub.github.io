@@ -1,1 +1,1 @@
-# Welcome to the DEEP-FOREST-CLUB Department DOCS
+# DEEP-FOREST-CLUB DOCS

@@ -37,7 +37,7 @@
     <div id="app"></div>
 
     <script>
-        var repoUrl = "https://github.com/DeepForestClub/deep-forest-club.github.io"; 
+        var repoUrl = "https://github.com/DeepForestClub/deepforestclub.github.io"; 
         var editPath = repoUrl + "/blob/main/docs/";
         var editMsg = "📝 Edit on GitHub";
         window.$docsify = {
@@ -47,9 +47,6 @@
             auto2top: true,
             autoHeader: true,
             loadSidebar: true,
-            alias: {
-                '/.*/_sidebar.md': '/_sidebar.md'
-            },
             loadNavbar: true,
             subMaxLevel: 2,
             formatUpdated: '{MM}/{DD} {HH}:{mm}',
@@ -63,8 +60,8 @@
             notFoundPage: {
                '/': '_404.md',
                '/en-us': '_404.md',
-               '/zh-cn': 'zh-cn/_404.md',
-               '/zh-tr': 'zh-tr/_404.md'
+               '/zh-cn': '/zh-cn/_404.md',
+               '/zh-tr': '/zh-tr/_404.md'
             },
             plugins: [
                 EditOnGithubPlugin.create(editPath, null, editMsg),
