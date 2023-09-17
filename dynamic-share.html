@@ -78,7 +78,7 @@
       $("#twitterButton").click(function () {
         var linkUrl = getUrlParameter("linkurl");
         var linkTitle = getUrlParameter("title");
-        var shareText = "我在看【" + linkTitle + "】，你也来看看吧：" + linkUrl;
+        var shareText = "分享【" + linkTitle + "】：" + linkUrl;
         var twitterUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText);
         openNewWindow(twitterUrl);
       });
@@ -87,7 +87,7 @@
       $("#facebookButton").click(function () {
         var linkUrl = getUrlParameter("linkurl");
         var linkTitle = getUrlParameter("title");
-        var shareText = "我发现了一个有趣的内容【" + linkTitle + "】，点击查看：" + linkUrl;
+        var shareText = "分享【" + linkTitle + "】：" + linkUrl;
         var facebookUrl = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(linkUrl) + "&quote=" + encodeURIComponent(shareText);
         openNewWindow(facebookUrl);
       });
@@ -96,7 +96,7 @@
       $("#qqZoneButton").click(function () {
         var linkUrl = getUrlParameter("linkurl");
         var linkTitle = getUrlParameter("title");
-        var shareText = "这篇文章【" + linkTitle + "】写得很好，大家都来看看吧：" + linkUrl;
+        var shareText = "分享【" + linkTitle + "】：" + linkUrl;
         var qqZoneUrl = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + encodeURIComponent(linkUrl) + "&title=" + encodeURIComponent(shareText);
         openNewWindow(qqZoneUrl);
       });
