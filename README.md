@@ -1,2 +1,1 @@
-# 欢迎来到深林文学部工具站
-[深林文学部主站](http://deep-forest-club.wikidot.com/)
+这里是深林文学部的Github Pages页面，用于存储各种各样的网站工具，用于被嵌套或以其他方式调用。
