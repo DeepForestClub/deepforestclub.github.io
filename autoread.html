@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文本转语音</title>
+  <script>
+    // Check if the browser supports speech synthesis
+    function checkSpeechSupport() {
+      return 'speechSynthesis' in window;
+    }
+
+    // Parse the 'content' parameter from the URL
+    function getTextFromURL() {
+      var url = window.location.href;
+      var content = decodeURIComponent(getParameterByName("content", url));
+      return content;
+    }
+
+    // Function to get parameter value from URL
+    function getParameterByName(name, url) {
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    // Read content when the page loads
+    window.onload = function () {
+      if (checkSpeechSupport()) {
+        var content = getTextFromURL();
+        if (content) {
+          // Create a SpeechSynthesisUtterance object
+          var utterance = new SpeechSynthesisUtterance(content);
+
+          // Set language to Chinese
+          utterance.lang = 'zh-CN';
+
+          // Use browser's speech synthesis service to read content
+          window.speechSynthesis.speak(utterance);
+        } else {
+          console.log("Content parameter not found in URL.");
+        }
+      } else {
+        console.log("Speech synthesis not supported in this browser.");
+      }
+    };
+  </script>
+</head>
+
+</html>
