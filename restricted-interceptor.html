@@ -1,22 +1,27 @@
-<!DOCTYPE html>  
-<html>  
-<head>  
-  <meta charset="UTF-8">  
-  <title>限制级内容拦截器</title>  
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>限制级内容拦截器</title>
   <style>
-    .input-date-birthday-class,.btn-submit-class {
+    .input-date-birthday-class,
+    .btn-submit-class {
       border-radius: 23px;
       border: 1px solid #dfe1e5;
       padding: 6px;
     }
+
     .ahref-class {
       font-size: 75%;
     }
-    .ahref-after{
+
+    .ahref-after {
       font-weight: lighter;
       font-size: 75%;
       margin-top: .4rem;
     }
+
     hr {
       margin: 1em 2em;
       padding: 0;
@@ -27,68 +32,76 @@
       background-color: #AAA;
       background-color: #555545;
     }
-    a {text-decoration: none;}
+
+    a {
+      text-decoration: none;
+    }
   </style>
-</head>  
+</head>
+
 <body style="text-align: center;">
   <noscript>
     你的浏览器可能不支持JavaScript，此程序必须使用JavaScript执行！
   </noscript>
-  <input type="date" name="input-date-birthday" id="input-date-birthday" class="input-date-birthday-class" placeholder="请输入出生日期（例如：2000/01/01）">  
-  <button class="btn-submit-class" onclick="checkAge()">验证</button>  
-  <br><hr>
+  <input type="date" name="input-date-birthday" id="input-date-birthday" class="input-date-birthday-class"
+    placeholder="请输入出生日期（例如：2000/01/01）">
+  <button class="btn-submit-class" onclick="checkAge()">验证</button>
+  <br>
+  <hr>
   <div class="ahref-class">
-    <a href="https://deep-forest-club.wikidot.com/privacy-policy" target="_blank">隐私权政策</a> | <a href="https://deep-forest-club.wikidot.com/site-rules" target="_blank">网站站规</a>
+    <a href="https://deep-forest-club.wikidot.com/privacy-policy" target="_blank">隐私权政策</a> | <a
+      href="https://deep-forest-club.wikidot.com/site-rules" target="_blank">网站站规</a>
     <br>
   </div>
   <div class="ahref-after">
     若继续使用则代表你同意以上内容。本程序不会收集任何日志，所有信息亦在本地处理和使用。
   </div>
   <script>
-  function getQueryString(linkurl) {
-    var query_string = window.location.search;
-    if (!query_string) return null; // 如果无参，返回null
-    var re = /[?&]?([^=]+)=([^&]*)/g;
-    var tokens;
-    while (tokens = re.exec(query_string)) {
-    if (decodeURIComponent(tokens[1]) === linkurl) {
-      return decodeURIComponent(tokens[2]);
+    function getQueryString(linkurl) {
+      var query_string = window.location.search;
+      if (!query_string) return null; // 如果无参，返回null
+      var re = /[?&]?([^=]+)=([^&]*)/g;
+      var tokens;
+      while (tokens = re.exec(query_string)) {
+        if (decodeURIComponent(tokens[1]) === linkurl) {
+          return decodeURIComponent(tokens[2]);
+        }
+      }
+      return null;
     }
-  }
-    return null;
-  }
-  var link = getQueryString('linkurl');
-    function checkAge() {  
-  var birthday = document.getElementById("input-date-birthday").value;  
-  var regExp = /^(\d{4})[\/|-](\d{1,2})[\/|-](\d{1,2})$/;  
-  if (!regExp.test(birthday)) {  
-    alert("你输入的出生日期格式不正确，请尝试重新输入。");  
-    return false;  
-  }  
-  var age = getAge(birthday);  
-  if (isNaN(age)) {  
-    alert("你输入的出生日期信息无效，请尝试重新输入。");  
-    return false;  
-  }  
-  if (age < 18) {  
-    alert("你的年龄未满18周岁，无法访问限制级页面。");  
-    return false;  
-  }
-  window.top.location.href=link+"#content-wrap";
-  window.parent.location.href=link+"#content-wrap";
-  window.top.location.replace(link+"#content-wrap");
-}  
-  
-function getAge(dateString) {  
-  var today = new Date();  
-  var birthDate = new Date(dateString);  
-  var age = today.getFullYear() - birthDate.getFullYear();  
-  var m = today.getMonth() - birthDate.getMonth();  
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {  
-    age--;  
-  }  
-  return age;  
-}  
-  </script>  
-</body>  
+    var link = getQueryString('linkurl');
+    function checkAge() {
+      var birthday = document.getElementById("input-date-birthday").value;
+      var regExp = /^(\d{4})[\/|-](\d{1,2})[\/|-](\d{1,2})$/;
+      if (!regExp.test(birthday)) {
+        alert("你输入的出生日期格式不正确，请尝试重新输入。");
+        return false;
+      }
+      var age = getAge(birthday);
+      if (isNaN(age)) {
+        alert("你输入的出生日期信息无效，请尝试重新输入。");
+        return false;
+      }
+      if (age < 18) {
+        alert("你的年龄未满18周岁，无法访问限制级页面。");
+        return false;
+      }
+      window.top.location.href = link + "#content-wrap";
+      window.parent.location.href = link + "#content-wrap";
+      window.top.location.replace(link + "#content-wrap");
+    }
+
+    function getAge(dateString) {
+      var today = new Date();
+      var birthDate = new Date(dateString);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    }  
+  </script>
+</body>
+
 </html>
