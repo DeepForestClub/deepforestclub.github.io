@@ -13,12 +13,12 @@
     }
 
     .ahref-class {
-      font-size: 75%;
+      font-size: 80%;
     }
 
     .ahref-after {
       font-weight: lighter;
-      font-size: 75%;
+      font-size: 68%;
       margin-top: .4rem;
     }
 
@@ -69,39 +69,41 @@
       }
       return null;
     }
-    var link = getQueryString('linkurl');
-    function checkAge() {
-      var birthday = document.getElementById("input-date-birthday").value;
-      var regExp = /^(\d{4})[\/|-](\d{1,2})[\/|-](\d{1,2})$/;
-      if (!regExp.test(birthday)) {
-        alert("你输入的出生日期格式不正确，请尝试重新输入。");
-        return false;
-      }
-      var age = getAge(birthday);
-      if (isNaN(age)) {
-        alert("你输入的出生日期信息无效，请尝试重新输入。");
-        return false;
-      }
-      if (age < 18) {
-        alert("你的年龄未满18周岁，无法访问限制级页面。");
-        return false;
-      }
-      window.top.location.href = link + "#content-wrap";
-      window.parent.location.href = link + "#content-wrap";
-      window.top.location.replace(link + "#content-wrap");
-    }
-
-    function getAge(dateString) {
-      var today = new Date();
-      var birthDate = new Date(dateString);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-      return age;
-    }  
-  </script>
-</body>
-
+  }
+    return null;
+  }
+  var link = getQueryString('linkurl');
+    function checkAge() {  
+  var birthday = document.getElementById("input-date-birthday").value;  
+  var regExp = /^(\d{4})[\/|-](\d{1,2})[\/|-](\d{1,2})$/;  
+  if (!regExp.test(birthday)) {  
+    alert("你输入的出生日期格式不正确，请尝试重新输入。");  
+    return false;  
+  }  
+  var age = getAge(birthday);  
+  if (isNaN(age)) {  
+    alert("你输入的出生日期信息无效，请尝试重新输入。");  
+    return false;  
+  }  
+  if (age < 18) {  
+    alert("你的年龄未满18周岁，无法访问限制级页面。");  
+    return false;  
+  }
+  window.top.location.href=link+"#u-rated";
+  window.parent.location.href=link+"#u-rated";
+  window.top.location.replace(link+"#u-rated");
+}  
+  
+function getAge(dateString) {  
+  var today = new Date();  
+  var birthDate = new Date(dateString);  
+  var age = today.getFullYear() - birthDate.getFullYear();  
+  var m = today.getMonth() - birthDate.getMonth();  
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {  
+    age--;  
+  }  
+  return age;  
+}  
+  </script>  
+</body>  
 </html>
