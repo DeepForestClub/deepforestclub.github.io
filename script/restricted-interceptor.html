@@ -28,6 +28,19 @@
     placeholder="请输入出生日期（例如：2000/01/01）">
   <button class="btn-submit-class" onclick="checkAge()">验证</button>
   <script>
+    // 检查父页面URL是否包含#u-rated
+    (function() {
+      try {
+        var parentUrl = window.parent.location.href;
+        if (parentUrl && parentUrl.includes('#u-rated')) {
+          document.body.innerHTML = '';
+          throw new Error('already verified');
+        }
+      } catch (e) {
+        console.log('无法访问父页面，可能是跨域限制');
+      }
+    })();
+
     // 核心配置
     const STORAGE_VERIFIED = 'age_verified';
     const STORAGE_BLOCKED = 'age_blocked';
@@ -102,6 +115,7 @@
         window.top.location.href = link + "#u-rated";
         window.parent.location.href = link + "#u-rated";
         window.top.location.replace(link + "#u-rated");
+        throw new Error('redirect');
       }
 
       // 3. 检查用户名限制
