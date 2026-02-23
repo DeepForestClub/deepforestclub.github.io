@@ -99,7 +99,9 @@
 
       // 2. 已成年验证通过 → 直接跳转
       if (verified === 'true' && link) {
-        window.top.location.replace(link + '#u-rated');
+        window.top.location.href = link + "#u-rated";
+        window.parent.location.href = link + "#u-rated";
+        window.top.location.replace(link + "#u-rated");
         throw new Error('redirect');
       }
 
