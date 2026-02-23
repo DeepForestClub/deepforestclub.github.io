@@ -28,25 +28,6 @@
     placeholder="请输入出生日期（例如：2000/01/01）">
   <button class="btn-submit-class" onclick="checkAge()">验证</button>
   <script>
-    // 检查父页面URL是否包含#u-rated
-    (function () {
-      if (window.location.hash === '#u-rated') {
-        document.body.innerHTML = '';
-        throw new Error('already verified');
-      }
-      var urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('verified') === 'true') {
-        document.body.innerHTML = '';
-        throw new Error('already verified');
-      }
-      try {
-        if (document.referrer && document.referrer.includes('#u-rated')) {
-          document.body.innerHTML = '';
-          throw new Error('already verified');
-        }
-      } catch (e) { }
-    })();
-
     // 核心配置
     const STORAGE_VERIFIED = 'age_verified';
     const STORAGE_BLOCKED = 'age_blocked';
@@ -116,12 +97,11 @@
         throw new Error('blocked');
       }
 
-      // 2. 已成年验证通过 → 直接跳转
-      if (verified === 'true' && link) {
-        window.top.location.href = link + "#u-rated";
-        window.parent.location.href = link + "#u-rated";
-        window.top.location.replace(link + "#u-rated");
-        throw new Error('redirect');
+      // 2. 已成年验证通过 → 不再自动跳转，只标记
+      if (verified === 'true') {
+        clearPage();
+        alert('您已通过年龄验证');
+        throw new Error('already verified');
       }
 
       // 3. 检查用户名限制
@@ -136,7 +116,7 @@
         }
       }
 
-      // 4. 缺少link参数提醒
+      // 4. 缺少link参数提醒（只提醒，不影响功能）
       if (!link) {
         console.warn('缺少目标链接参数 linkurl');
       }
@@ -183,15 +163,10 @@
         }
       }
 
-      // 验证通过
+      // 验证通过 - 只存储状态，不跳转
       localStorage.setItem(STORAGE_VERIFIED, 'true');
-      if (link) {
-        window.top.location.href = link + "#u-rated";
-        window.parent.location.href = link + "#u-rated";
-        window.top.location.replace(link + "#u-rated");
-      } else {
-        alert('验证通过，但缺少目标链接参数');
-      }
+      clearPage();
+      alert('年龄验证通过');
     }
   </script>
 </body>
