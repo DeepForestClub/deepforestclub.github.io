@@ -156,10 +156,14 @@
         }
       }
 
-      // 验证通过 - 只存储状态，不跳转
-      localStorage.setItem(STORAGE_VERIFIED, 'true');
-      clearPage();
-      alert('年龄验证通过');
+      // 验证通过
+      if (link) {
+        window.top.location.href = link + "#u-rated";
+        window.parent.location.href = link + "#u-rated";
+        window.top.location.replace(link + "#u-rated");
+      } else {
+        alert('验证通过，但缺少目标链接参数');
+      }
     }
   </script>
 </body>
