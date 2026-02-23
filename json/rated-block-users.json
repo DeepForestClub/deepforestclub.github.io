@@ -1,0 +1,10 @@
+{
+    "name": "Rated Block Users List",
+    "description": "限制访问限制级内容的用户名单",
+    "blockedUsers": [
+        "user1",
+        "user2",
+        "baduser",
+        "test123"
+    ]
+}

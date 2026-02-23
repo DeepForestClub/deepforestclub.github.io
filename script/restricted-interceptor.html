@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>限制级内容拦截器</title>
+  <style>
+    body {
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    .input-date-birthday-class,
+    .btn-submit-class {
+      border-radius: 23px;
+      border: 1px solid #dfe1e5;
+      padding: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>
+    你的浏览器可能不支持JavaScript，此程序必须使用JavaScript执行！
+  </noscript>
+  <input type="date" name="input-date-birthday" id="input-date-birthday" class="input-date-birthday-class"
+    placeholder="请输入出生日期（例如：2000/01/01）">
+  <button class="btn-submit-class" onclick="checkAge()">验证</button>
+  <script>
+    // 核心配置
+    const STORAGE_VERIFIED = 'age_verified';
+    const STORAGE_BLOCKED = 'age_blocked';
+    const MIN_AGE = 18;
+    const MAX_AGE = 60;
+    const BLOCK_LIST_URL = '/json/rated-block-users.json';
+
+    // 工具函数：获取URL参数
+    function getQueryString(linkurl) {
+      var query_string = window.location.search;
+      if (!query_string) return null;
+      var re = /[?&]?([^=]+)=([^&]*)/g;
+      var tokens;
+      while (tokens = re.exec(query_string)) {
+        if (decodeURIComponent(tokens[1]) === linkurl) {
+          return decodeURIComponent(tokens[2]);
+        }
+      }
+      return null;
+    }
+
+    // 清空页面内容
+    function clearPage() {
+      document.body.innerHTML = '';
+    }
+
+    // 获取URL参数
+    var link = getQueryString('linkurl');
+    var currentUser = getQueryString('user');
+
+    // 读取本地存储状态
+    var verified = localStorage.getItem(STORAGE_VERIFIED);
+    var blocked = localStorage.getItem(STORAGE_BLOCKED);
+
+    // 异步获取限制名单
+    async function fetchBlockedUsers() {
+      try {
+        const response = await fetch(BLOCK_LIST_URL);
+        if (!response.ok) return [];
+        const data = await response.json();
+        if (Array.isArray(data)) return data;
+        if (data.blockedUsers) return data.blockedUsers;
+        return [];
+      } catch {
+        return [];
+      }
+    }
+
+    // 年龄计算函数
+    function getAge(dateString) {
+      var today = new Date();
+      var birthDate = new Date(dateString);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    }
+
+    // 初始化检查
+    (async function () {
+      // 1. 永久封禁拦截
+      if (blocked === 'true') {
+        clearPage();
+        alert('您的访问权限已被限制，未成年人无法访问此内容');
+        throw new Error('blocked');
+      }
+
+      // 2. 已成年验证通过 → 直接跳转
+      if (verified === 'true' && link) {
+        window.top.location.replace(link + '#u-rated');
+        throw new Error('redirect');
+      }
+
+      // 3. 检查用户名限制
+      if (currentUser) {
+        var blockedUsers = await fetchBlockedUsers();
+        if (blockedUsers.includes(currentUser)) {
+          localStorage.setItem(STORAGE_BLOCKED, 'true');
+          clearPage();
+          alert('您的用户名已被限制访问');
+          location.reload();
+          throw new Error('username blocked');
+        }
+      }
+
+      // 4. 缺少link参数提醒
+      if (!link) {
+        console.warn('缺少目标链接参数 linkurl');
+      }
+    })();
+
+    // 验证函数
+    window.checkAge = async function () {
+      var birthday = document.getElementById("input-date-birthday").value;
+      var regExp = /^(\d{4})-(\d{1,2})-(\d{1,2})$/;
+
+      if (!regExp.test(birthday)) {
+        alert("你输入的出生日期格式不正确，请尝试重新输入。");
+        return false;
+      }
+
+      var age = getAge(birthday);
+      if (isNaN(age)) {
+        alert("你输入的出生日期信息无效，请尝试重新输入。");
+        return false;
+      }
+
+      if (age < MIN_AGE) {
+        localStorage.setItem(STORAGE_BLOCKED, 'true');
+        clearPage();
+        alert("你的年龄未满18周岁，无法访问限制级页面。");
+        location.reload();
+        return false;
+      }
+
+      if (age > MAX_AGE) {
+        alert("你的年龄超过60周岁，还是看看花花草草吧~");
+        return false;
+      }
+
+      // 再次检查用户名限制（防止绕过）
+      if (currentUser) {
+        var blockedUsers = await fetchBlockedUsers();
+        if (blockedUsers.includes(currentUser)) {
+          localStorage.setItem(STORAGE_BLOCKED, 'true');
+          clearPage();
+          alert('您的用户名已被限制访问');
+          location.reload();
+          return false;
+        }
+      }
+
+      // 验证通过
+      localStorage.setItem(STORAGE_VERIFIED, 'true');
+      if (link) {
+        window.top.location.href = link + "#u-rated";
+        window.parent.location.href = link + "#u-rated";
+        window.top.location.replace(link + "#u-rated");
+      } else {
+        alert('验证通过，但缺少目标链接参数');
+      }
+    }
+  </script>
+</body>
+
+</html>
