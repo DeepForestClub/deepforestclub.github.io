@@ -97,14 +97,7 @@
         throw new Error('blocked');
       }
 
-      // 2. 已成年验证通过 → 不再自动跳转，只标记
-      if (verified === 'true') {
-        clearPage();
-        alert('您已通过年龄验证');
-        throw new Error('already verified');
-      }
-
-      // 3. 检查用户名限制
+      // 2. 检查用户名限制
       if (currentUser) {
         var blockedUsers = await fetchBlockedUsers();
         if (blockedUsers.includes(currentUser)) {
@@ -116,7 +109,7 @@
         }
       }
 
-      // 4. 缺少link参数提醒（只提醒，不影响功能）
+      // 3. 缺少link参数提醒
       if (!link) {
         console.warn('缺少目标链接参数 linkurl');
       }
