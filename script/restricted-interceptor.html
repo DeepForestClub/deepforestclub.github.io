@@ -29,16 +29,22 @@
   <button class="btn-submit-class" onclick="checkAge()">验证</button>
   <script>
     // 检查父页面URL是否包含#u-rated
-    (function() {
+    (function () {
+      if (window.location.hash === '#u-rated') {
+        document.body.innerHTML = '';
+        throw new Error('already verified');
+      }
+      var urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('verified') === 'true') {
+        document.body.innerHTML = '';
+        throw new Error('already verified');
+      }
       try {
-        var parentUrl = window.parent.location.href;
-        if (parentUrl && parentUrl.includes('#u-rated')) {
+        if (document.referrer && document.referrer.includes('#u-rated')) {
           document.body.innerHTML = '';
           throw new Error('already verified');
         }
-      } catch (e) {
-        console.log('无法访问父页面，可能是跨域限制');
-      }
+      } catch (e) { }
     })();
 
     // 核心配置
