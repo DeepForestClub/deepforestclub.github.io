@@ -90,10 +90,9 @@
 
     // 初始化检查
     (async function () {
-      // 1. 永久封禁拦截
+      // 1. 永久拦截
       if (blocked === 'true') {
         clearPage();
-        alert('您的访问权限已被限制，未成年人无法访问此内容');
         throw new Error('blocked');
       }
 
