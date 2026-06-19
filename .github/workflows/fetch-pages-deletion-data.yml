@@ -1,0 +1,34 @@
+name: Fetch Pages Deletion Data
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # 每 10 分钟执行一次
+  workflow_dispatch:          # 支持手动触发
+
+jobs:
+  fetch-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch JSON from remote URL
+        run: |
+          mkdir -p json
+          curl -sSL "https://raw.githubusercontent.com/DeepForestClub/PagesDeletion/master/data.json" \
+            -o json/pages-deletion-data.json
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add json/pages-deletion-data.json
+
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update pages-deletion-data.json"
+            git push
+          else
+            echo "No changes to commit"
+          fi
